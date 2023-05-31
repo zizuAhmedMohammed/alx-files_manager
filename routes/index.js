@@ -5,15 +5,15 @@ import AuthController from '../controllers/AuthController';
 import UsersController from '../controllers/UsersController';
 import FilesController from '../controllers/FilesController';
 import { basicAuthenticate, xTokenAuthenticate } from '../middlewares/auth';
-import { APIError, errorResponse } from '../middlewares/error';
+import { APIError, errorResponse } from '../middlewares/errors';
 
 /**
- * Injects routes with their handlers to the given Express application.
+ * Adds routes and their handlers to the given express app
  * @param {Express} api
  */
-const injectRoutes = (api) => {
-  api.get('/status', AppController.getStatus);
-  api.get('/stats', AppController.getStats);
+const addRoutes = (api) => {
+  api.get('/status/', AppController.getStatus);
+  api.get('stats', AppController.getStats);
 
   api.get('/connect', basicAuthenticate, AuthController.getConnect);
   api.get('/disconnect', xTokenAuthenticate, AuthController.getDisconnect);
@@ -34,4 +34,4 @@ const injectRoutes = (api) => {
   api.use(errorResponse);
 };
 
-export default injectRoutes;
+export default addRoutes;
